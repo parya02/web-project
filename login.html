@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login - PORTFOLIO WEBSITE</title>
+    <link rel="stylesheet" href="bootstrap.css">
+    <style>
+        body {
+            background-color: #e3f2fd;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+        .login-container {
+            background: white;
+            padding: 40px;
+            border-radius: 10px;
+            box-shadow: 0 0 15px rgba(0, 0, 0, 0.15);
+            max-width: 400px;
+            width: 100%;
+            text-align: center;
+        }
+        .login-container h2 {
+            margin-bottom: 20px;
+            color: #6a1b9a;
+        }
+        .form-group {
+            text-align: left;
+            margin-bottom: 15px;
+        }
+        .form-group label {
+            font-weight: bold;
+        }
+        .form-control {
+            padding: 12px;
+            font-size: 16px;
+            border-radius: 5px;
+            border: 1px solid #ccc;
+        }
+        .btn-primary {
+            background-color: #6a1b9a;
+            border: none;
+            padding: 12px;
+            font-size: 18px;
+            border-radius: 5px;
+            width: 100%;
+        }
+        .btn-primary:hover {
+            background-color: #4a148c;
+        }
+        .signup-link {
+            margin-top: 15px;
+            display: block;
+        }
+    </style>
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg">
+        <a class="navbar-brand" href="#"> </a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav ml-auto">
+              
+                <li class="nav-item"><a class="nav-link" href="about.html">About</a></li>
+                <li class="nav-item"><a class="btn btn-outline-primary" href="signup.html">Sign Up</a></li>
+                <li class="nav-item"><a class="btn btn-outline-success mr-4 ml-4" href="login.html">Log In</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <div class="container-fluid">
+        <div class="row">
+           
+            <div class="col-md-6 info-section">
+                <h2>Welcome to PORTFOLIO WEBSITE</h2>
+                <p>Create professional resumes effortlessly with our easy-to-use resume builder. Customize your templates and stand out in job applications.</p>
+            </div> 
+
+    <div class="login-container">
+        <h2>Login to PORTFOLIO WEBSITE</h2>
+        <form>
+            <div class="form-group">
+                <label for="email">Email Address</label>
+                <input type="email" class="form-control" id="email" placeholder="Enter your email">
+            </div>
+            <div class="form-group">
+                <label for="password">Password</label>
+                <input type="password" class="form-control" id="password" placeholder="Enter your password">
+            </div>
+            <button type="submit" onclick="login()" class="btn btn-primary">Login</button>
+        </form>
+        <a href="signup.html" class="signup-link">Don't have an account? Sign Up</a>
+    </div>
+
+    <script src="auth.js"></script>
+
+</body>
+</html>

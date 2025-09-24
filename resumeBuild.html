@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Resume Builder</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+    <style>
+        body {
+            background-color: #f8f9fa;
+            font-family: 'Arial', sans-serif;
+        }
+        .container {
+            max-width: 900px;
+            background: white;
+            padding: 30px;
+            margin-top: 50px;
+            border-radius: 10px;
+            box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+        }
+        .form-control {
+            margin-bottom: 15px;
+        }
+        .preview-container {
+            display: none;
+            padding: 20px;
+            margin-top: 20px;
+            background: white;
+            border-radius: 10px;
+            box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
+        }
+        .photo-preview {
+            max-width: 120px;
+            border-radius: 50%;
+            margin-bottom: 10px;
+            display: block;
+        }
+        .btn {
+            font-size: 16px;
+        }
+        .navbar {
+            width: 100%;
+            background-color: #f9f8fa;
+            padding: 15px;
+            position: absolute;
+            top: 0;
+            left: 0;
+            z-index: 1000;
+            margin-bottom: 10vh;
+        }
+        .navbar-brand {
+            font-size: 24px;
+            font-weight: bold;
+            color: black;
+        }
+        .navbar-nav .nav-item .nav-link {
+            color: black;
+            font-size: 18px;
+            margin: 0 10px;
+        }
+        .navbar-nav .nav-item .nav-link:hover {
+            color: #6a1b9a;
+        }
+    </style>
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg">
+        <a class="navbar-brand" href="#">Portfolio Website</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav ml-auto">
+                <li class="nav-item"><a class="nav-link" href="#">Home</a></li>
+                <li class="nav-item"><a class="nav-link" href="about.html">About</a></li>
+                <li class="nav-item"><a class="btn btn-outline-primary" href="index.html">🚪 Logout</a></li>
+            </ul>
+        </div>
+    </nav>
+    <div class="container">
+        <h2 class="text-center text-primary mb-4">PORTFOLIO WEBSITE</h2>
+        <form id="resumeForm">
+            <div class="form-group">
+                <label><strong>Upload Photo:</strong></label>
+                <input type="file" class="form-control-file" id="photo" accept="image/*" onchange="previewPhoto()">
+            </div>
+            <div class="form-group">
+                <label><strong>Full Name:</strong></label>
+                <input type="text" class="form-control" id="name">
+            </div>
+            <div class="form-group">
+                <label><strong>Email:</strong></label>
+                <input type="email" class="form-control" id="email">
+            </div>
+            <div class="form-group">
+                <label><strong>Phone:</strong></label>
+                <input type="tel" class="form-control" id="phone">
+            </div>
+            <div class="form-group">
+                <label><strong>Address:</strong></label>
+                <input type="text" class="form-control" id="address">
+            </div>
+            <div class="form-group">
+                <label><strong>Summary:</strong></label>
+                <textarea class="form-control" id="summary" rows="3"></textarea>
+            </div>
+            <div class="form-group">
+                <label><strong>Education:</strong></label>
+                <textarea class="form-control" id="education" rows="3"></textarea>
+            </div>
+            <div class="form-group">
+                <label><strong>Experience:</strong></label>
+                <textarea class="form-control" id="experience" rows="3"></textarea>
+            </div>
+            <div class="form-group">
+                <label><strong>Skills:</strong></label>
+                <textarea class="form-control" id="skills" rows="3"></textarea>
+            </div>
+            <button type="button" class="btn btn-primary btn-block" onclick="generateResume()">Generate Resume</button>
+        </form>
+
+        <!-- Resume Preview -->
+        <div class="preview-container mt-4" id="resumePreview">
+            <h3 class="text-center text-secondary">Your Resume</h3>
+            <hr>
+            <div class="text-center">
+                <img id="photoPreview" class="photo-preview" src="" alt="Photo Preview">
+            </div>
+            <p><strong>Name:</strong> <span id="previewName"></span></p>
+            <p><strong>Email:</strong> <span id="previewEmail"></span></p>
+            <p><strong>Phone:</strong> <span id="previewPhone"></span></p>
+            <p><strong>Address:</strong> <span id="previewAddress"></span></p>
+            <p><strong>Summary:</strong> <span id="previewSummary"></span></p>
+            <p><strong>Education:</strong> <span id="previewEducation"></span></p>
+            <p><strong>Experience:</strong> <span id="previewExperience"></span></p>
+            <p><strong>Skills:</strong> <span id="previewSkills"></span></p>
+            <button type="button" class="btn btn-success btn-block" onclick="downloadResume()">Download PDF</button>
+        </div>
+    </div>
+
+    <script>
+        function previewPhoto() {
+            let fileInput = document.getElementById("photo");
+            let preview = document.getElementById("photoPreview");
+            let reader = new FileReader();
+            reader.onload = function (e) {
+                preview.src = e.target.result;
+            };
+            reader.readAsDataURL(fileInput.files[0]);
+        }
+
+        function generateResume() {
+            document.getElementById("previewName").innerText = document.getElementById("name").value;
+            document.getElementById("previewEmail").innerText = document.getElementById("email").value;
+            document.getElementById("previewPhone").innerText = document.getElementById("phone").value;
+            document.getElementById("previewAddress").innerText = document.getElementById("address").value;
+            document.getElementById("previewSummary").innerText = document.getElementById("summary").value;
+            document.getElementById("previewEducation").innerText = document.getElementById("education").value;
+            document.getElementById("previewExperience").innerText = document.getElementById("experience").value;
+            document.getElementById("previewSkills").innerText = document.getElementById("skills").value;
+
+            document.getElementById("resumePreview").style.display = "block"; // Show resume preview
+        }
+
+        function downloadResume() {
+            const { jsPDF } = window.jspdf;
+            const doc = new jsPDF();
+        
+            let name = document.getElementById("name").value;
+            let email = document.getElementById("email").value;
+            let phone = document.getElementById("phone").value;
+            let address = document.getElementById("address").value;
+            let summary = document.getElementById("summary").value;
+            let education = document.getElementById("education").value;
+            let experience = document.getElementById("experience").value;
+            let skills = document.getElementById("skills").value;
+        
+            const photo = document.getElementById("photoPreview");
+        
+            // Load the image and add it
+            if (photo.src) {
+                doc.addImage(photo.src, 'JPEG', 150, 10, 40, 40); // (imgData, format, x, y, width, height)
+            }
+        
+            doc.setFontSize(12);
+            doc.text(`Name: ${name}`, 20, 20);
+            doc.text(`Email: ${email}`, 20, 30);
+            doc.text(`Phone: ${phone}`, 20, 40);
+            doc.text(`Address: ${address}`, 20, 50);
+            
+            doc.text(`Summary:`, 20, 60);
+            doc.text(summary, 20, 70, { maxWidth: 170 });
+        
+            doc.text(`Education:`, 20, 90);
+            doc.text(education, 20, 100, { maxWidth: 170 });
+        
+            doc.text(`Experience:`, 20, 120);
+            doc.text(experience, 20, 130, { maxWidth: 170 });
+        
+            doc.text(`Skills:`, 20, 150);
+            doc.text(skills, 20, 160, { maxWidth: 170 });
+        
+            doc.save("Resume.pdf");
+        }
+        
+    </script>
+</body>
+</html>

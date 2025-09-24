@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sign Up - PORTFOLIO WEBSITE</title>
+    <link rel="stylesheet" href="bootstrap.css">
+    <style>
+        body {
+            background-color: #e3f2fd;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+        .signup-container {
+            background: white;
+            padding: 25px; /* Reduced from 40px */
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.15);
+            max-width: 350px; /* Slightly narrower */
+            width: 100%;
+            text-align: center;
+        }
+        .signup-container h2 {
+            margin-bottom: 15px; /* Reduced margin */
+            font-size: 22px; /* Slightly smaller font */
+            color: #6a1b9a;
+        }
+        .form-group {
+            text-align: left;
+            margin-bottom: 10px; /* Reduced space between fields */
+        }
+        .form-group label {
+            font-size: 14px;
+            font-weight: bold;
+        }
+        .form-control {
+            padding: 10px; /* Reduced padding */
+            font-size: 14px;
+            border-radius: 5px;
+            border: 1px solid #ccc;
+        }
+        .btn-primary {
+            background-color: #6a1b9a;
+            border: none;
+            padding: 10px; /* Reduced button size */
+            font-size: 16px;
+            border-radius: 5px;
+            width: 100%;
+        }
+        .btn-primary:hover {
+            background-color: #4a148c;
+        }
+        .login-link {
+            margin-top: 10px; /* Reduced space */
+            font-size: 14px;
+            display: block;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="signup-container">
+        <h2>Create an Account</h2>
+        <form>
+            <div class="form-group">
+                <label for="name">Full Name</label>
+                <input type="text" class="form-control" id="name" placeholder="Enter your full name">
+            </div>
+            <div class="form-group">
+                <label for="email">Email Address</label>
+                <input type="email" class="form-control" id="email" placeholder="Enter your email">
+            </div>
+            <div class="form-group">
+                <label for="password">Password</label>
+                <input type="password" class="form-control" id="password" placeholder="Create a password">
+            </div>
+            <div class="form-group">
+                <label for="confirm-password">Confirm Password</label>
+                <input type="password" class="form-control" id="confirm-password" placeholder="Confirm your password">
+            </div>
+            <button type="submit" onclick="signup()" class="btn btn-primary">Sign Up</button>
+        </form>
+        <a href="login.html" class="login-link">Already have an account? Log In</a>
+    </div>
+
+    <script src="auth.js"></script>
+
+</body>
+</html>
